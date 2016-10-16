@@ -1,0 +1,18 @@
+{
+  "name": "npm-uninstall-package",
+  "version": "1.0.0",
+  "description": "uninstall all node modules",
+  "main": "index.js",
+  "bin": {
+    "npmuninstall": ".bin/main.js",
+    "npmun": ".bin/main.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "uninstall"
+  ],
+  "author": "chenhao-ch",
+  "license": "ISC"
+}
