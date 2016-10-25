@@ -31,13 +31,22 @@ packages = packages.filter(function(v) {
     return v;
 });
 
-if (packages.length === 0 ) {
+const packagesLength = packages.length;
+const uninstallCount = 50;
+let uninstallTimes = 1;
+if (packagesLength === 0 ) {
   console.log('已全部删除');
   return;
 }
 
-execCommand = `npm un ${packages.join(' ')} ${opts.join(' ')}`;
+if (packagesLength > uninstallCount) {  // 依赖书多以约定，分批进行
+  uninstallTimes = parseInt((packagesLength - 1) / uninstallCount) + 1;
+}
+console.log(`共删除 ${packages.length} 个modules, 分${uninstallTimes}批进行删除: `);
 
-console.log(`共删除 ${packages.length} 个modules, 删除命令如下: `);
-console.log(execCommand);
-execSync(execCommand);
+while(uninstallTimes > 0) {
+  uninstallTimes--;
+  execCommand = `npm un ${packages.splice(0, uninstallCount).join(' ')} ${opts.join(' ')}`;
+  console.log(`运行命令：\n${execCommand}`);
+  execSync(execCommand);
+}
